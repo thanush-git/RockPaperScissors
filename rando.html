@@ -1,0 +1,138 @@
+<!--Features Required:
+1. Remove Logic that plays 5 rounds
+2. 3 buttons: Rock, Paper and Scissors
+3. Maintain Human and Computer scores. First entity to get 5 scores is the winnerof the game-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RockPaperScissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <img id="logo" src="logo-rps.gif" alt="">
+        <button class="start-btn">Start Game</button>
+    </div>
+</body>
+
+<script>
+    const container = document.querySelector(".container");
+    const startBtn = document.querySelector(".start-btn");
+    const logoGIF = document.querySelector("#logo");
+    const newContainer = document.createElement("div");
+    const spawnGameLayout = document.createElement("div");
+    let computerScore = 0;
+    let humanScore = 0;
+
+
+    newContainer.classList.add("new-container");
+    const rulesHTML = `
+    <h1>Rules</h1>
+        <ul>
+            <li>You are playing against the Computer</li>
+            <li>First to get 5 points wins the game</li>
+            <li>Draws don't count</li>
+        </ul>
+        <button id="proceedGame">Gotcha</button>
+    `
+
+    const gameLayoutHTML = `
+         <div class="game-layout-container">
+        <div class="scores">
+            <div class="computer-score">Computer Score<div class="computer-score-value"></div>
+            </div>
+            <div class="human-score">Human Score <div class="human-score-value"></div>
+            </div>
+        </div>
+        <div class="body-content"></div>
+        <div class="hand-buttons">
+            <button class="rock bt" id = "player-rock" value="Rock"><img class="hand" src="assets/rock.png" alt="">
+                <p>Rock</p>
+            </button>
+            <button class="paper bt" id ="player-paper" value="Paper"><img class="hand" src="assets/paper.png" alt="">
+                <p>Paper</p>
+            </button>
+            <button class="scissor bt" id ="player-scissor" value="Scissor"><img class="hand" src="assets/scissor.png" alt="">
+                <p>Scissors</p>
+            </button>
+        </div>
+    </div>
+    `
+    newContainer.innerHTML = rulesHTML;
+
+    startBtn.addEventListener("click", () => {
+        logoGIF.remove();
+        startBtn.remove();
+        container.appendChild(newContainer);
+
+
+        const proceedGame = document.querySelector("#proceedGame");
+
+        proceedGame.addEventListener("click", () => {
+            container.removeChild(newContainer);
+            spawnGameLayout.innerHTML = gameLayoutHTML;
+            container.appendChild(spawnGameLayout);
+
+            let computerScoreHTML = document.querySelector(".computer-score-value");
+            let humanScoreHTML = document.querySelector(".human-score-value");
+            console.log("Welcome to the game");
+            computerScoreHTML.textContent = (computerScore);
+            humanScoreHTML.textContent = (humanScore);
+            
+            const buttons = document.querySelectorAll(".bt");
+
+            buttons.forEach(button => {
+                button.addEventListener("click", function (e) {
+                    let playerChoice = e.currentTarget.value;
+                    let a = getComputerChoice();
+                    let b = playerChoice;
+                    playRound(a, b, computerScoreHTML, humanScoreHTML);
+                })
+                
+            })
+        });
+
+
+        const getComputerChoice = () => {
+            let a = Math.random();
+            if (a > 0 && a <= 0.33) {
+                return "Rock";
+            }
+            else if (a > 0.33 && a <= 0.66) {
+                return "Paper";
+            }
+            else return "Scissor";
+        }
+
+
+        const playRound = (a, b, computerScoreHTML, humanScoreHTML) => {
+            console.log(`You entered ${b}`);
+            console.log(`Computer Entered ${a}`);
+
+            if (a === b) {
+                console.log("Draw");
+            }
+
+            else if ((a === "Rock" && b === "Scissor") || (a === "Paper" && b === "Rock") || (a === "Scissor" && b === "Paper")) {
+                console.log("Computer Wins");
+                computerScore = computerScore + 1;
+            }
+
+            else {
+                console.log("Player Wins");
+                humanScore += 1;
+            }
+
+            computerScoreHTML.textContent = computerScore;
+            humanScoreHTML.textContent = humanScore;
+        }
+
+    })
+</script>
+
+</html>
