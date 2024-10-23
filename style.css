@@ -96,3 +96,35 @@ body {
     padding: 10px;
     padding-right: 70px;
 }
+
+.body-content{
+    color: #FFEECE;
+    font-family: "VT323", monospace;
+    font-weight: 400;
+    font-size: 30px;
+    overflow: visible; /* Allow overflow to show */
+}
+
+@media only screen and (min-width: 380px) {
+
+    #logo{
+        width: 90vw;
+    }
+    .game-layout-container{
+        padding: 15px;
+    }
+
+    .hand{
+       width: 25vw;
+       height: auto;
+    }
+
+    .body-content{
+        max-width: 75vw;
+        text-align: center;
+    }
+
+    .new-container{
+        width: 70vw;
+    }
+}

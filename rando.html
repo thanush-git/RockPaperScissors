@@ -29,7 +29,6 @@
     let computerScore = 0;
     let humanScore = 0;
 
-
     newContainer.classList.add("new-container");
     const rulesHTML = `
     <h1>Rules</h1>
@@ -49,7 +48,7 @@
             <div class="human-score">Human Score <div class="human-score-value"></div>
             </div>
         </div>
-        <div class="body-content"></div>
+        <div class="body-content"><div class = "status"></div></div>
         <div class="hand-buttons">
             <button class="rock bt" id = "player-rock" value="Rock"><img class="hand" src="assets/rock.png" alt="">
                 <p>Rock</p>
@@ -78,6 +77,9 @@
             spawnGameLayout.innerHTML = gameLayoutHTML;
             container.appendChild(spawnGameLayout);
 
+            let bodyText = document.querySelector(".body-content");
+            const stat = document.querySelector(".status");
+
             let computerScoreHTML = document.querySelector(".computer-score-value");
             let humanScoreHTML = document.querySelector(".human-score-value");
             console.log("Welcome to the game");
@@ -91,7 +93,15 @@
                     let playerChoice = e.currentTarget.value;
                     let a = getComputerChoice();
                     let b = playerChoice;
+                    if (humanScore < 5 && computerScore < 5){
                     playRound(a, b, computerScoreHTML, humanScoreHTML);
+                    }
+                    if (humanScore >= 5){
+                        bodyText.textContent = "Player wins the game!";
+                    }
+                    if (computerScore >= 5){
+                        bodyText.textContent = "Computer wins the game!";
+                    }
                 })
                 
             })
@@ -111,19 +121,19 @@
 
 
         const playRound = (a, b, computerScoreHTML, humanScoreHTML) => {
-            console.log(`You entered ${b}`);
-            console.log(`Computer Entered ${a}`);
 
+            const bodyText = document.querySelector(".body-content");
             if (a === b) {
-                console.log("Draw");
+                bodyText.textContent = `Computer Entered ${a}. Draw!`;
             }
 
             else if ((a === "Rock" && b === "Scissor") || (a === "Paper" && b === "Rock") || (a === "Scissor" && b === "Paper")) {
-                console.log("Computer Wins");
+                bodyText.textContent = `Computer Entered ${a}. Computer Wins!`;
                 computerScore = computerScore + 1;
             }
 
             else {
+                bodyText.textContent = `Computer Entered ${a}. Human Wins!`;
                 console.log("Player Wins");
                 humanScore += 1;
             }
