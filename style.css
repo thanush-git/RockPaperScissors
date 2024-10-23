@@ -105,26 +105,22 @@ body {
     overflow: visible; /* Allow overflow to show */
 }
 
-@media only screen and (min-width: 380px) {
-
-    #logo{
+@media only screen and (max-width: 600px) {
+    #logo {
         width: 90vw;
     }
-    .game-layout-container{
+    .game-layout-container {
         padding: 15px;
     }
-
-    .hand{
-       width: 25vw;
-       height: auto;
+    .hand {
+        width: 25vw;
+        height: auto;
     }
-
-    .body-content{
+    .body-content {
         max-width: 75vw;
         text-align: center;
     }
-
-    .new-container{
+    .new-container {
         width: 70vw;
     }
 }
